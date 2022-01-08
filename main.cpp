@@ -4,7 +4,7 @@
 #include <iterator>
 #include <string>
 
-// MIN HEAP //
+// MIN HEAP ///
 
 void printvec(std::vector<int>& v, bool newline = true){
     if (newline) std::cout << "\n";
