@@ -4,6 +4,14 @@
 #include <iterator>
 #include <string>
 
+/*
+KEY HELPER FUNCS:
+get_move_index() ---helps---> sift_down() ---> helps all / delete, heapify
+sift_up() ----helps----> insert
+
+
+*/
+
 
 //todo: insert, delete
 // MIN HEAP ///
@@ -113,7 +121,11 @@ void insert(std::vector<int>& heap, int x)
 // replace the root with the last node. nuke the last node. sift the new root down. 
 void delete_min(std::vector<int>& heap)
 {
+	int min = heap[1]; // to return
+	heap[1] = heap.back();
+	heap.pop_back();
 
+	sift_down(heap, 1);
 }
 
 // heap is a vector of nums
@@ -125,7 +137,11 @@ void delete_min(std::vector<int>& heap)
 
 void heapify(std::vector<int>& heap)
 {
-	
+	int t = PARENT(heap.size() - 1);
+
+	for (t; t != 0; t--){
+		sift_down(heap, t);
+	}
 }
 
 
