@@ -4,6 +4,8 @@
 #include <iterator>
 #include <string>
 
+
+//todo: insert, delete
 // MIN HEAP ///
 
 void printvec(std::vector<int>& v, bool newline = true){
@@ -28,7 +30,7 @@ inline bool is_valid_index(int i, std::vector<int>& heap){
 }
 
 // get the idx with the minimum value of theones we passed
-int get_min_index(int l, int r, std::vector<int>& heap){
+inline int get_min_index(int l, int r, std::vector<int>& heap){
 	if (heap[l] < heap[r]) return l;
 	else return r;
 }
@@ -36,6 +38,7 @@ int get_min_index(int l, int r, std::vector<int>& heap){
 // get the idx to which the hole must next move to. if the idx is the same
 // as the one we passed to it, it means there's no place for the hole to go
 // and we should stop
+// for sift down
 int get_move_index(int i, std::vector<int>& heap)
 {
 	int min_index;
@@ -57,7 +60,8 @@ int get_move_index(int i, std::vector<int>& heap)
 
 }
 
-// sift the idx i down
+// assume we only sift down a heavier value
+// sift the idx i down to its right position
 void sift_down(std::vector<int>& heap, int i)
 {
 	int hole_val = heap[i];
@@ -76,6 +80,55 @@ void sift_down(std::vector<int>& heap, int i)
 
 	heap[i] = hole_val;
 }
+// assume we only sift up a lighter value
+// so if i is 1, there's nowhere for it to "sift up" to
+void sift_up(std::vector<int>& heap, int i)
+{
+	int hole_val = heap[i];
+
+	while(i > 1)
+	{
+		if (hole_val < heap[PARENT(i)]){
+			heap[i] = std::move(heap[PARENT(i)]);
+			i = PARENT(i);
+		}
+		else{
+			break;
+		}
+
+
+	}
+	heap[i] = hole_val;
+}
+
+// Insert a node into a heap
+void insert(std::vector<int>& heap, int x)
+{
+	heap.push_back(x);
+	int i = heap.size() - 1;
+	sift_up(heap, i);
+	
+}
+
+// replace the root with the last node. nuke the last node. sift the new root down. 
+void delete_min(std::vector<int>& heap)
+{
+
+}
+
+// heap is a vector of nums
+// turn it into an actual heap
+//---
+// start at the last-most internal node, work your way to the top
+// sift each of them down to keep making sub heaps
+// at the end the final 2 subheaps will automatically combine into 1 heap
+
+void heapify(std::vector<int>& heap)
+{
+	
+}
+
+
 
 /*
 Successive inserts: Level by level sift up
